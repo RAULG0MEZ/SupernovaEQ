@@ -794,10 +794,6 @@ function App() {
   }, [themeId, themeMeta.mode]);
 
   useEffect(() => {
-    sendNativeEditorSize(1, PLUGIN_WIDTH, PLUGIN_HEIGHT);
-  }, []);
-
-  useEffect(() => {
     const updateNativeStatus = () => setNativeOnline(hasNativeBackend());
     updateNativeStatus();
     const timer = window.setInterval(updateNativeStatus, 1000);

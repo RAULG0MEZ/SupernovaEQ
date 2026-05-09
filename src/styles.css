@@ -6003,6 +6003,12 @@ body[data-theme] {
   min-height: 0;
 }
 
+.supernova-eq-plugin .eq-container {
+  width: min(1296px, calc(100% - 40px));
+  max-width: calc(100% - 40px);
+  min-width: 0;
+}
+
 .supernova-eq-plugin .eq-toolbar {
   left: 50%;
   transform: translateX(-50%);

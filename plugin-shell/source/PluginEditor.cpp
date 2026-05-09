@@ -8,9 +8,10 @@ namespace
 {
 constexpr int baseEditorWidth = 1360;
 constexpr int baseEditorHeight = 820;
+constexpr float defaultEditorScale = 0.9f;
 constexpr float minEditorScale = 0.5f;
 constexpr float maxEditorScale = 2.0f;
-constexpr const char* webAssetVersion = "20260507-lowcut-anchor-01";
+constexpr const char* webAssetVersion = "20260509-responsive-editor-01";
 
 juce::WebBrowserComponent::Resource makeTextResource(const juce::String& text)
 {
@@ -150,7 +151,8 @@ VoxanovaAudioProcessorEditor::VoxanovaAudioProcessorEditor(VoxanovaAudioProcesso
                   juce::roundToInt(baseEditorHeight * maxEditorScale));
   if (auto* editorConstrainer = getConstrainer())
     editorConstrainer->setFixedAspectRatio(static_cast<double>(baseEditorWidth) / static_cast<double>(baseEditorHeight));
-  setSize(baseEditorWidth, baseEditorHeight);
+  setSize(juce::roundToInt(baseEditorWidth * defaultEditorScale),
+          juce::roundToInt(baseEditorHeight * defaultEditorScale));
   addAndMakeVisible(webView);
   setResizable(true, true);
   webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot() + "?v=" + webAssetVersion);
