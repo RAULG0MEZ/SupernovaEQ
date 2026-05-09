@@ -769,6 +769,8 @@ function App() {
   const [savePresetOpen, setSavePresetOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const [ab, setAb] = useState("A");
+  const abActiveSlotRef = useRef("A");
+  const abSnapshotsRef = useRef({ A: null, B: null });
 
   const eqScaleRef = useRef(null);
   const eqTouchedRef = useRef(false);
@@ -876,6 +878,47 @@ function App() {
   const setInputGain = useCallback((value) => setParam("inputGain", value), [setParam]);
   const setOutputGain = useCallback((value) => setParam("outputGain", value), [setParam]);
 
+  const makeAbSnapshot = useCallback(() => ({
+    values: supernovaParameterIds.reduce((snapshot, id) => {
+      snapshot[id] = values[id] ?? defaultValues[id];
+      return snapshot;
+    }, {}),
+    eqPoints: normalizeEqPoints(eqPoints)
+  }), [eqPoints, values]);
+
+  const applyAbSnapshot = useCallback((snapshot) => {
+    const nextValues = { ...defaultValues, ...(snapshot?.values || {}) };
+    const nextEqPoints = normalizeEqPoints(snapshot?.eqPoints || []);
+    const eqPayload = { bands: nextEqPoints };
+
+    setValues(nextValues);
+    setEqPointsFromUi(nextEqPoints);
+    supernovaParameterIds.forEach((id) => {
+      const value = nextValues[id];
+      sendNativeParameter(id, booleanParameterSet.has(id) ? (value ? 1 : 0) : value);
+    });
+    lastSentEqJsonRef.current = JSON.stringify(eqPayload);
+    sendNativeEqBands(eqPayload);
+  }, [setEqPointsFromUi]);
+
+  const handleAbSelect = useCallback((nextSlot) => {
+    if (nextSlot !== "A" && nextSlot !== "B") return;
+
+    const currentSlot = abActiveSlotRef.current;
+    if (nextSlot === currentSlot) return;
+
+    const currentSnapshot = makeAbSnapshot();
+    abSnapshotsRef.current[currentSlot] = currentSnapshot;
+
+    if (!abSnapshotsRef.current[nextSlot]) {
+      abSnapshotsRef.current[nextSlot] = currentSnapshot;
+    }
+
+    abActiveSlotRef.current = nextSlot;
+    setAb(nextSlot);
+    applyAbSnapshot(abSnapshotsRef.current[nextSlot]);
+  }, [applyAbSnapshot, makeAbSnapshot]);
+
   const resetToDefault = useCallback(() => {
     setValues(defaultValues);
     setEqPointsFromUi([]);
@@ -971,8 +1014,8 @@ function App() {
           </div>
           <div className="header-actions">
             <div className="ab-compare">
-              <button className={ab === "A" ? "active" : ""} onClick={() => setAb("A")}>A</button>
-              <button className={ab === "B" ? "active" : ""} onClick={() => setAb("B")}>B</button>
+              <button className={ab === "A" ? "active" : ""} onClick={() => handleAbSelect("A")}>A</button>
+              <button className={ab === "B" ? "active" : ""} onClick={() => handleAbSelect("B")}>B</button>
             </div>
             <button
               className={`icon-btn${tweaks.signalActive ? " active" : ""}`}

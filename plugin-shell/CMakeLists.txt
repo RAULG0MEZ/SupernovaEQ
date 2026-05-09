@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(SupernovaEQ VERSION 0.1.0)
+project(SupernovaEQ VERSION 0.1.1)
 
 if(NOT DEFINED JUCE_DIR)
   message(FATAL_ERROR "Set JUCE_DIR to your local JUCE checkout before configuring this target.")
