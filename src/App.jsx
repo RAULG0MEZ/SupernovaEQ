@@ -923,8 +923,8 @@ function App() {
         <div className="plugin-header">
           <div className="brand">
             <button type="button" className="brand-mark" onClick={() => setInfoOpen(true)} aria-haspopup="dialog">
-              Supernova EQ
-              <span className="brand-dot" />
+              <span className="brand-word">Supernova</span>
+              <span className="brand-eq">EQ</span>
             </button>
             <div className="brand-sub">Equalizer · {nativeOnline ? "Native" : "Browser"}</div>
           </div>
