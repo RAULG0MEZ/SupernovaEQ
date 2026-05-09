@@ -1,0 +1,24 @@
+# Dependencias
+node_modules/
+.deps/
+
+# Build de Vite (se regenera con `npm run build`)
+dist/
+
+# Basura del sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editores
+.vscode/
+.idea/
+
+# Worktrees temporales de Claude Code
+.claude/
+
+# Build del plugin C++ (cuando exista)
+plugin-shell/build/
