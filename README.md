@@ -28,6 +28,29 @@ cmake -S plugin-shell -B plugin-shell/build -DJUCE_DIR="/Users/raulgomez/Documen
 cmake --build plugin-shell/build --config Release
 ```
 
+## Build The macOS Installer
+
+```bash
+packaging/build_macos_installer.sh
+```
+
+The installer is written to `release/` and installs:
+
+```text
+/Library/Audio/Plug-Ins/Components/Supernova EQ.component
+/Library/Audio/Plug-Ins/VST3/Supernova EQ.vst3
+```
+
+For a universal Apple Silicon + Intel build:
+
+```bash
+SUPERNOVA_EQ_ARCHS="arm64;x86_64" packaging/build_macos_installer.sh
+```
+
+Unsigned installers may show the normal macOS security warning on other machines.
+Set `INSTALLER_SIGN_IDENTITY` to a Developer ID Installer certificate to sign the
+package.
+
 ## Sync EQ Code From Voxanova
 
 When Voxanova receives EQ-specific changes, sync them into this repo with:
