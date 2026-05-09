@@ -24,5 +24,5 @@ npm-debug.log*
 # Worktrees temporales de Claude Code
 .claude/
 
-# Build del plugin C++ (cuando exista)
-plugin-shell/build/
+# Builds del plugin C++ (cuando existan)
+plugin-shell/build*/

@@ -90,8 +90,29 @@ if [[ "$SKIP_BUILD" -eq 0 ]]; then
   cmake --build "$BUILD_PATH" --config Release
 fi
 
-AU_BUNDLE="$BUILD_PATH/SupernovaEQ_artefacts/AU/Supernova EQ.component"
-VST3_BUNDLE="$BUILD_PATH/SupernovaEQ_artefacts/VST3/Supernova EQ.vst3"
+find_bundle() {
+  local direct_path="$1"
+  local release_path="$2"
+
+  if [[ -d "$direct_path" ]]; then
+    printf '%s\n' "$direct_path"
+    return 0
+  fi
+
+  if [[ -d "$release_path" ]]; then
+    printf '%s\n' "$release_path"
+    return 0
+  fi
+
+  return 1
+}
+
+AU_BUNDLE="$(find_bundle \
+  "$BUILD_PATH/SupernovaEQ_artefacts/AU/Supernova EQ.component" \
+  "$BUILD_PATH/SupernovaEQ_artefacts/Release/AU/Supernova EQ.component" || true)"
+VST3_BUNDLE="$(find_bundle \
+  "$BUILD_PATH/SupernovaEQ_artefacts/VST3/Supernova EQ.vst3" \
+  "$BUILD_PATH/SupernovaEQ_artefacts/Release/VST3/Supernova EQ.vst3" || true)"
 
 if [[ ! -d "$AU_BUNDLE" ]]; then
   echo "Missing AU bundle: $AU_BUNDLE" >&2
