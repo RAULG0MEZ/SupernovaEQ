@@ -339,9 +339,9 @@ body.is-plugin-resizing * {
 }
 .brand-mark {
   font-family: 'Geist', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: 0.035em;
+  font-size: 23px;
+  font-weight: 760;
+  letter-spacing: 0;
   font-style: normal;
   color: var(--ink-1);
   line-height: 1;
@@ -352,36 +352,101 @@ body.is-plugin-resizing * {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  text-transform: uppercase;
+  gap: 11px;
+  text-transform: none;
 }
 .brand-mark:hover {
   color: var(--ink-1);
 }
+.brand-symbol {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--accent);
+  background:
+    radial-gradient(circle at 50% 50%, oklch(from var(--accent) 72% c h / 0.28) 0 3px, transparent 4px),
+    conic-gradient(from 24deg, oklch(from var(--accent) 76% c h / 0.08), oklch(from var(--accent) 84% c h / 0.62), oklch(96% 0.012 112 / 0.18), oklch(from var(--accent) 76% c h / 0.08));
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.18),
+    inset 0 -8px 18px oklch(0% 0 0 / 0.34),
+    0 8px 18px oklch(0% 0 0 / 0.18);
+}
+.brand-symbol::before {
+  content: '';
+  position: absolute;
+  width: 28px;
+  height: 12px;
+  border: 1px solid currentColor;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-radius: 50%;
+  transform: rotate(-24deg);
+  opacity: 0.82;
+}
+.brand-symbol::after {
+  content: '';
+  position: absolute;
+  right: 7px;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: oklch(96% 0.018 112);
+  box-shadow: 0 0 12px oklch(from var(--accent) 82% c h / 0.78);
+}
+.brand-symbol-core {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: oklch(94% 0.020 112);
+  box-shadow:
+    0 0 16px oklch(from var(--accent) 78% c h / 0.86),
+    0 0 2px oklch(0% 0 0 / 0.34);
+}
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
 .brand-word {
   transform: translateY(0.5px);
+  color: oklch(91% 0.014 112);
+  text-shadow:
+    0 1px 0 oklch(100% 0 0 / 0.08),
+    0 8px 20px oklch(0% 0 0 / 0.34);
 }
 .brand-eq {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 27px;
-  height: 18px;
-  padding: 0 6px;
-  border: 0.5px solid oklch(from var(--accent) 72% c h / 0.42);
-  border-radius: 5px;
-  color: var(--accent);
-  background: oklch(from var(--accent) 16% c h / 0.10);
+  min-width: 31px;
+  height: 21px;
+  padding: 0 7px;
+  border: 1px solid oklch(from var(--accent) 72% c h / 0.38);
+  border-radius: 6px;
+  color: oklch(94% 0.020 112);
+  background:
+    linear-gradient(180deg, oklch(from var(--accent) 36% c h / 0.24), oklch(8% 0.004 112 / 0.36)),
+    oklch(from var(--accent) 18% c h / 0.18);
   font-family: 'Geist Mono', monospace;
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0;
   line-height: 1;
-  box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.06);
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / 0.16),
+    0 5px 14px oklch(0% 0 0 / 0.18);
 }
 .brand-mark:hover .brand-eq {
   border-color: oklch(from var(--accent) 78% c h / 0.62);
-  background: oklch(from var(--accent) 22% c h / 0.16);
+  background:
+    linear-gradient(180deg, oklch(from var(--accent) 44% c h / 0.30), oklch(8% 0.004 112 / 0.34)),
+    oklch(from var(--accent) 22% c h / 0.20);
 }
 .brand-sub {
   font-family: 'Geist Mono', monospace;
