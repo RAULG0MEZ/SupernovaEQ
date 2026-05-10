@@ -976,7 +976,7 @@ function App() {
                 <span className="brand-symbol-core" />
               </span>
               <span className="brand-lockup">
-                <span className="brand-word">SUPERNOVA</span>
+                <span className="brand-word">Supernova</span>
                 <span className="brand-eq">EQ</span>
               </span>
             </button>
